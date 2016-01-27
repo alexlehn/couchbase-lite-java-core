@@ -510,7 +510,6 @@ public class Database implements StoreDelegate {
     @InterfaceAudience.Public
     public boolean putLocalDocument(String localDocID, Map<String, Object> properties)
             throws CouchbaseLiteException {
-        // TODO: the iOS implementation wraps this in a transaction, this should do the same.
         localDocID = makeLocalDocumentId(localDocID);
         RevisionInternal prevRev = getLocalDocument(localDocID, null);
         if (prevRev == null && properties == null) {
@@ -1864,7 +1863,7 @@ public class Database implements StoreDelegate {
     @InterfaceAudience.Private
     public RevisionInternal putLocalRevision(RevisionInternal revision, String prevRevID)
             throws CouchbaseLiteException {
-        return store.putLocalRevision(revision, prevRevID, true);
+        return store.putLocalRevision(revision, prevRevID, false);
     }
 
     /**
